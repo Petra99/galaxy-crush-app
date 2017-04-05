@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,10 +18,18 @@ public class GameWindow {
 
 	private JButton[][] buttons;
 
+	public JButton[][] getButtons() {
+		return buttons;
+	}
+
 	private JLabel proba;
 
 	private JFrame frame;
 	private JPanel panel;
+
+	public JPanel getPanel() {
+		return panel;
+	}
 
 	private OnUserAction listener;
 
@@ -33,7 +40,6 @@ public class GameWindow {
 
 	public void runWindow() {
 		try {
-			// GameWindow window = new GameWindow();
 			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,6 +97,7 @@ public class GameWindow {
 	public void createButtons(ImageIcon image, int x, int y) {
 		JButton btn = new JButton();
 		btn.setIcon(image);
+		System.out.println(btn.getIcon());
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// to do
@@ -99,12 +106,12 @@ public class GameWindow {
 		});
 		buttons[x][y] = btn;
 		panel.add(btn);
-		SwingUtilities.updateComponentTreeUI(panel);
 	}
 
 	public void changeButton(int x, int y) {
 		proba.setText("Uspeshno");
-		buttons[x][y].setVisible(false); // probno
+		buttons[x][y].setVisible(false);
+		// probno
 	}
 
 	// vruzka windows i vs ostanalo

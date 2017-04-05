@@ -1,54 +1,46 @@
 package gameGUI;
 
-import gameGUI.GameFigures;
+import javax.swing.JButton;
+
 import gameGUI.GameWindow;
 import gameGUI.GameWindow.OnUserAction;
 
+import gameLogic.Logic;
+
 public class GameBoard {
 
-	private int board_width = 6;
-	private int board_height = 6;
 	private GameWindow gameWindow;
-
-	public GameFigures[][] board = new GameFigures[board_width][board_height];
-
-	public int getBoard_width() {
+	private static int board_width = 6;
+	private static int board_height = 6;
+	private static Logic logic;
+	public static int getBoard_width() {
 		return board_width;
 	}
 
-	public int getBoard_height() {
+	public static int getBoard_height() {
 		return board_height;
 	}
 
+	public static JButton[][] board;
+	
 	public GameBoard(GameWindow window) {
 		gameWindow = window;
+		board = gameWindow.getButtons();
+		logic = new Logic();
 		gameWindow.setListener(new OnUserAction() {
 
 			@Override
 			public void onButtonClicked(int x, int y) {
-				gameWindow.changeButton(x, y);
-
-				// logic
-				// metodi v gameboard
-
+				logic.play(x, y);
+				gameWindow.getPanel().revalidate();
+				gameWindow.getPanel().repaint();
 			}
 		});
-	}
-
-	public void generate() {
-
-		for (int i = 0; i < board_height; i++) {
-			for (int j = 0; j < board_width; j++) {
-				board[i][j] = new GameFigures();
-				// gameWindow.createButtons(GameFigures.getRandomImage());
-			}
-
-		}
 	}
 
 	public void run() {
 
 		gameWindow.runWindow();
-		generate();
 	}
+
 }
