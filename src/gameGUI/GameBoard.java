@@ -10,8 +10,8 @@ import gameLogic.Logic;
 public class GameBoard {
 
 	private GameWindow gameWindow;
-	private static int board_width = 6;
-	private static int board_height = 6;
+	private static final int BOARD_WIDTH = 6;
+	private static final int BOARD_HEIGHT = 6;
 	private static Logic logic;
 	
 	public static JButton[][] board;
@@ -30,11 +30,11 @@ public class GameBoard {
 	}
 
 	public static int getBoard_width() {
-		return board_width;
+		return BOARD_WIDTH;
 	}
 
 	public static int getBoard_height() {
-		return board_height;
+		return BOARD_HEIGHT;
 	}
 
 	
