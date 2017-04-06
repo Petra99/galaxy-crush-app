@@ -97,11 +97,12 @@ public class GameWindow {
 	public void createButtons(ImageIcon image, int x, int y) {
 		JButton btn = new JButton();
 		btn.setIcon(image);
-		System.out.println(btn.getIcon());
 		btn.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				// to do
 				listener.onButtonClicked(x, y);
+				
 			}
 		});
 		buttons[x][y] = btn;

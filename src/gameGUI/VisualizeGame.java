@@ -6,7 +6,7 @@ public class VisualizeGame {
 		GameWindow window = new GameWindow(6, 6);
 		GameBoard board = new GameBoard(window);
 
-		board.run();
+		board.runBoard();
 
 	}
 

@@ -11,10 +11,10 @@ public class GameFigures {
 
 	public static ImageIcon getRandomImage() {
 
-		ImageIcon earth = new ImageIcon("earth.png");
-		ImageIcon saturn = new ImageIcon("saturn.png");
-		ImageIcon mars = new ImageIcon("mars.png");
-		ImageIcon neptune = new ImageIcon("neptune.png");
+		ImageIcon earth = new ImageIcon("pl1.png");
+		ImageIcon saturn = new ImageIcon("pl2.png");
+		ImageIcon mars = new ImageIcon("pl3.png");
+		ImageIcon neptune = new ImageIcon("pl4.png");
 
 		imageList.add(earth);
 		imageList.add(saturn);

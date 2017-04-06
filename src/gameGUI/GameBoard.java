@@ -13,14 +13,7 @@ public class GameBoard {
 	private static int board_width = 6;
 	private static int board_height = 6;
 	private static Logic logic;
-	public static int getBoard_width() {
-		return board_width;
-	}
-
-	public static int getBoard_height() {
-		return board_height;
-	}
-
+	
 	public static JButton[][] board;
 	
 	public GameBoard(GameWindow window) {
@@ -32,13 +25,20 @@ public class GameBoard {
 			@Override
 			public void onButtonClicked(int x, int y) {
 				logic.play(x, y);
-				gameWindow.getPanel().revalidate();
-				gameWindow.getPanel().repaint();
 			}
 		});
 	}
 
-	public void run() {
+	public static int getBoard_width() {
+		return board_width;
+	}
+
+	public static int getBoard_height() {
+		return board_height;
+	}
+
+	
+	public void runBoard() {
 
 		gameWindow.runWindow();
 	}
