@@ -1,5 +1,7 @@
 package gameLogic;
 
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -8,6 +10,9 @@ import gameGUI.GameFigures;
 import gameGUI.GameWindow;
 
 public class Logic {
+
+	public ArrayList<JButton> horizontalList = new ArrayList<JButton>();
+	public ArrayList<JButton> verticalList = new ArrayList<JButton>();
 
 	private int currX;
 	private int currY;
@@ -29,89 +34,81 @@ public class Logic {
 		} else {
 			if (isMoveLegal(currX, currY, x, y)) {
 				swapElements(currX, currY, x, y);
-			}
 
-			checkIfMatch(x, y);
+				for (int row = GameBoard.getBoard_height(); row < 0; row++) {
+					for (int col = GameBoard.getBoard_width(); col < 0; col++) {
+
+						checkIfMatch(x, y);
+					}
+				}
+			}
 			refill();
 			// pri vseki hod
 			currX = -1;
 			currY = -1;
 		}
+
 	}
 
 	private void checkIfMatch(int row, int col) {
 		checkIfRightMatch(row, col);
 		checkIfLeftMatch(row, col);
+		System.out.println(horizontalList.size());
+		if (horizontalList.size() >= 3) {
+			removeButtons(horizontalList);
+		}
 		checkIfUpMatch(row, col);
 		checkIfDownMatch(row, col);
+		if (verticalList.size() >= 3) {
+			removeButtons(verticalList);
+		}
+
+	}
+
+	private void removeButtons(ArrayList list) {
+		for (int i = 0; i < horizontalList.size(); i++) {
+			for (int row = GameBoard.getBoard_height(); row < 0; row++) {
+				for (int col = GameBoard.getBoard_width(); col < 0; col++) {
+					if (horizontalList.get(i).getIcon().equals(GameBoard.board[row][col].getIcon())) {
+						GameBoard.board[row][col] = null;
+						break;
+					}
+				}
+			}
+		}
 
 	}
 
 	private void checkIfDownMatch(int row, int col) {
-		int counter = 0;
+		System.out.println("Heelloo1");
 		while (row < 5 && GameBoard.board[row][col].getIcon().equals(GameBoard.board[row + 1][col].getIcon())) {
+			verticalList.add(GameBoard.board[row][col]);
 			row++;
-			counter++;
+			System.out.println("hello");
 		}
-		if (counter >= 3) {
-
-			for (int i = row; i < row + counter; i++) {
-				GameBoard.board[i][col].setIcon(null);
-			}
-		}
-		makeScore(counter);
 
 	}
 
 	private void checkIfUpMatch(int row, int col) {
-		int counter = 0;
+		System.out.println("Heelloo2");
 		while (row > 0 && GameBoard.board[row][col].getIcon().equals(GameBoard.board[row - 1][col].getIcon())) {
-			// out of bounds ?
+			verticalList.add(GameBoard.board[row][col]);
 			row--;
-			counter++;
 		}
-		if (counter >= 3) {
-
-			for (int i = row - counter; i < row; i++) {
-				GameBoard.board[i][col].setIcon(null);
-			}
-		}
-		makeScore(counter);
-
 	}
 
 	private void checkIfLeftMatch(int row, int col) {
-		int counter = 0;
 		while (col > 0 && GameBoard.board[row][col].getIcon().equals(GameBoard.board[row][col - 1].getIcon())) {
+			horizontalList.add(GameBoard.board[row][col]);
 			col--;
-			counter++;
 		}
-		if (counter >= 3) {
-
-			for (int i = col - counter; i < col; i++) {
-				GameBoard.board[row][i].setIcon(null);
-			}
-		}
-		makeScore(counter);
-
 	}
 
 	private void checkIfRightMatch(int row, int col) {
-		int counter = 0;
 		while (col < 5 && GameBoard.board[row][col].getIcon().equals(GameBoard.board[row][col + 1].getIcon())) {
-
+			horizontalList.add(GameBoard.board[row][col]);
 			col++;
-			counter++;
-
 		}
-		if (counter >= 3) {
-
-			for (int i = col; i < col + counter; i++) {
-				GameBoard.board[row][i].setIcon(null);
-			}
-		}
-		makeScore(counter);
-
 	}
 
 	private void refill() {
@@ -120,6 +117,7 @@ public class Logic {
 				if (GameBoard.board[row][col].getIcon() == null) {
 					do {
 						GameBoard.board[row][col] = GameBoard.board[row - 1][col];
+						GameBoard.board[row - 1][col] = null;
 						row--;
 					} while (row != 0);
 					// GameWindow.createButton(GameFigures.getRandomImage(), 0,
